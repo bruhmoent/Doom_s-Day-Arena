@@ -5,6 +5,7 @@
 #define CAMERA_H
 
 class Camera {
+
 public:
 	glm::vec3 Position;
 	glm::vec3 Front;
@@ -39,7 +40,9 @@ public:
 	void setZoom(float value);
 
 	float zoom = 1.0f;
+
 };
+
 extern std::unique_ptr<Camera> g_camera;
 
 #endif

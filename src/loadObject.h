@@ -8,6 +8,7 @@ class Shader;
 class Model;
 
 class ModelLoader {
+
 public:
 
     ModelLoader() = default;

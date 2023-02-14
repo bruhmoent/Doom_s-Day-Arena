@@ -17,6 +17,7 @@ void clearBuffer(int width, int height)
 
 void RenderEngine::renderScene(Shader& shader, Model& model, Camera& camera, GLFWwindow*& window)
 {
+
 	glfwPollEvents();
 
 	shader.use();
@@ -104,4 +105,5 @@ void RenderEngine::renderScene(Shader& shader, Model& model, Camera& camera, GLF
 
 	glfwSwapBuffers(window);
 	glfwPollEvents();
+
 }

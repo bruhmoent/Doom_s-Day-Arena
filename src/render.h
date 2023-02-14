@@ -10,7 +10,10 @@ class Model;
 
 class RenderEngine
 {
+
 public:
 	void renderScene(Shader& shader, Model& model, Camera& camera, GLFWwindow*& window);
+
 };
+
 #endif

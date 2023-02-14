@@ -5,6 +5,7 @@
 #define MODEL_H
 
 class Model {
+
 public:
 	Model() : m_vbo(0) {}
 	~Model() {
@@ -44,5 +45,6 @@ public:
 
 private:
 	GLuint m_vbo;
+
 };
 #endif
