@@ -10,12 +10,14 @@ void Shader::checkShaderSourceErrors(GLuint shader, const char* type) {
 	}
 }
 
-unsigned int Shader::getID() {
-	return m_shaderID;
-}
+
+void Shader::setVec3(const std::string& name, const glm::vec3& value) const { glUniform3fv(glGetUniformLocation(m_shaderID, name.c_str()), 1, &value[0]); }
+
+unsigned int Shader::getID() { return m_shaderID; }
 
 void Shader::checkCompileErrors(unsigned int shader, std::string type)
 {
+
 	int success;
 	char infoLog[1024];
 	if (type != "PROGRAM")
@@ -27,6 +29,7 @@ void Shader::checkCompileErrors(unsigned int shader, std::string type)
 			std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
 		}
 	}
+
 	else
 	{
 		glGetProgramiv(shader, GL_LINK_STATUS, &success);
@@ -36,6 +39,7 @@ void Shader::checkCompileErrors(unsigned int shader, std::string type)
 			std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
 		}
 	}
+
 }
 
 void Shader::use() const { glUseProgram(m_shaderID); }

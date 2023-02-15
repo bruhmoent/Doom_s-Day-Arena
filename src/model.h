@@ -1,5 +1,6 @@
 #pragma once
 #include "definition.h"
+#include "camera.h"
 
 #ifndef MODEL_H
 #define MODEL_H
@@ -19,6 +20,7 @@ public:
 
 	std::vector<float> m_vertices;
 	std::vector<unsigned int> m_indices;
+	float m_depthFromCamera;
 	std::map<std::string, unsigned int> m_textures;
 
 	glm::vec3 position = glm::vec3(0.0f);
@@ -26,6 +28,10 @@ public:
 	glm::vec3 rotation = glm::vec3(0.0f);
 
 	void setVertexData(const std::vector<float>& vertexData);
+
+	glm::mat4 getRotationMatrix(float xRotation, float yRotation);
+
+	void setDepthFromCamera(glm::vec3 cameraPos, glm::vec3 modelPos);
 
 	void loadTexture(const std::string& textureFilePath, const std::string& textureName);
 
@@ -47,4 +53,5 @@ private:
 	GLuint m_vbo;
 
 };
+
 #endif

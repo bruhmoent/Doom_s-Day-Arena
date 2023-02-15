@@ -1,6 +1,7 @@
 #include "model.h"
 
-glm::mat4 Model::getModelMatrix() {
+glm::mat4 Model::getModelMatrix() 
+{
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, position);
     model = glm::rotate(model, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
@@ -8,6 +9,16 @@ glm::mat4 Model::getModelMatrix() {
     model = glm::rotate(model, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
     model = glm::scale(model, scale);
     return model;
+}
+
+void Model::setDepthFromCamera(glm::vec3 cameraPos, glm::vec3 modelPos){ m_depthFromCamera = glm::length(cameraPos - modelPos); }
+
+glm::mat4 Model::getRotationMatrix(float xRotation, float yRotation) {
+    glm::mat4 modelMatrix = glm::mat4(1.0f);
+    modelMatrix = glm::scale(modelMatrix, glm::vec3(0.3, 0.3, 0.3));
+    modelMatrix = glm::rotate(modelMatrix, xRotation, glm::vec3(1.0f, 0.0f, 0.0f));
+    modelMatrix = glm::rotate(modelMatrix, yRotation, glm::vec3(0.0f, 1.0f, 0.0f));
+    return modelMatrix;
 }
 
 void Model::bindVertexData() {
@@ -27,7 +38,13 @@ void Model::loadTexture(const std::string& textureFilePath, const std::string& t
 
     GLuint textureId;
     glGenTextures(1, &textureId);
-    glActiveTexture(GL_TEXTURE0 + 2);
+    GLenum error = glGetError();
+    if (error != GL_NO_ERROR) {
+        std::cerr << "Failed to generate texture: " << error << std::endl;
+        return;
+    }
+
+    glActiveTexture(GL_TEXTURE2);
     glBindTexture(GL_TEXTURE_2D, textureId);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -49,6 +66,7 @@ void Model::loadTexture(const std::string& textureFilePath, const std::string& t
 
     m_textures[textureName] = textureId;
 }
+
 
 void Model::setVertexData(const std::vector<float>& vertexData)
 {

@@ -6,6 +6,7 @@
 #include "model.h"
 #include <C:\Users\bar12\source\repos\openGL\openGL\glad.c>
 
+extern std::vector<Model> g_models;
 Shader g_shader;
 Model g_model;
 GLFWwindow* g_window;
@@ -68,8 +69,9 @@ void runTimeProcessx64::initGL(GLFWwindow*& window)
 
 void runTimeProcessx64::RUN()
 {
+
 	g_camera.reset(new Camera);
-	g_model = g_load.loadModel("../assets/stages/baseplate.obj");
+	std::vector<Model> models = g_load.loadModel("../assets/stages/baseplate.obj");
 	g_shader = Shader("shader.vs", "shader.fs");
 	g_camera->resetCamera();
 	glClearDepth(1.0f);
@@ -77,18 +79,19 @@ void runTimeProcessx64::RUN()
 	glDepthFunc(GL_LEQUAL);   
 	glShadeModel(GL_SMOOTH);  
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST); 
-	glMatrixMode(GL_MODELVIEW);  
+	glMatrixMode(GL_MODELVIEW); 
 	glLoadIdentity();  
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
-	g_model.loadTexture("../assets/images/floor3.png", "test");
 
 	while (!glfwWindowShouldClose(g_window))
 	{
+
 		glm::vec3 cameraPosition = g_camera->getFront();
 		glfwSetInputMode(g_window, GLFW_CURSOR, GLFW_CROSSHAIR_CURSOR);
 		glfwSetCursorPosCallback(g_window, Camera::mouse_callback);
-		g_renderEngine.renderScene(g_shader, g_model, *g_camera, g_window);
+		g_renderEngine.renderScene(g_shader, models, *g_camera, g_window);
+
 	}
 
 }

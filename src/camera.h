@@ -21,8 +21,6 @@ public:
 
 	glm::vec3 getFront();
 
-	void updateCameraView(Camera& camera);
-
 	glm::vec3 getUp();
 
 	void resetCamera();

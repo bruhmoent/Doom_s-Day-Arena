@@ -12,7 +12,7 @@ class RenderEngine
 {
 
 public:
-	void renderScene(Shader& shader, Model& model, Camera& camera, GLFWwindow*& window);
+	void renderScene(Shader& shader, std::vector<Model>& models, Camera& camera, GLFWwindow*& window);
 
 };
 

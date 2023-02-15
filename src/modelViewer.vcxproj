@@ -146,9 +146,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="audioManager.cpp" />
     <ClCompile Include="camera.cpp" />
-    <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="collisionManager.cpp" />
     <ClCompile Include="loadObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="model.cpp" />
@@ -245,9 +245,9 @@
     <ClInclude Include="assimp\XmlParser.h" />
     <ClInclude Include="assimp\XMLTools.h" />
     <ClInclude Include="assimp\ZipArchiveIOSystem.h" />
-    <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="audioManager.h" />
     <ClInclude Include="camera.h" />
-    <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="collisionManager.h" />
     <ClInclude Include="definition.h" />
     <ClInclude Include="loadObject.h" />
     <ClInclude Include="model.h" />

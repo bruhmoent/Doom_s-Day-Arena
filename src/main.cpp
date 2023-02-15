@@ -4,8 +4,10 @@ extern GLFWwindow* g_window;
 
 int main()
 {
+
 	runtime.initGL(g_window);
 	runtime.RUN();
 	glfwTerminate();
 	return 0;
+
 }

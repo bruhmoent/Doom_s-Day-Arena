@@ -14,12 +14,12 @@ public:
     ModelLoader() = default;
     ~ModelLoader() = default;
 
-    Model loadModel(const std::string& path);
+    std::vector<Model> loadModel(const std::string& path);
 
     void clearBuffer(int width, int height);
 
     std::vector<float> m_vertexData;
 
 };
-#endif
 
+#endif

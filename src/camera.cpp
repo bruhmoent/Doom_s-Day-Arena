@@ -2,29 +2,17 @@
 std::unique_ptr<Camera> g_camera;
 Camera* camera;
 
-glm::mat4 Camera::getViewMatrix() {
-	return glm::lookAt(Position, Position + Front, Up);
-}
+glm::mat4 Camera::getViewMatrix() { return glm::lookAt(Position, Position + Front, Up);}
 
-void Camera::resetCamera() {
-	g_camera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-}
+void Camera::resetCamera() { g_camera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f)); }
 
-glm::vec3 Camera::getFront() {
-	return Front;
-}
+glm::vec3 Camera::getFront() { return Front; }
 
-glm::vec3 Camera::getUp() {
-	return Up;
-}
+glm::vec3 Camera::getUp() { return Up; }
 
-float Camera::getZoom() {
-	return zoom;
-}
+float Camera::getZoom() { return zoom; }
 
-void Camera::setZoom(float value) {
-	zoom = value;
-}
+void Camera::setZoom(float value) { zoom = value; }
 
 void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
@@ -63,13 +51,9 @@ void Camera::processMouseMovement(float xoffset, float yoffset, GLboolean constr
 	setFront2(front);
 }
 
-glm::vec3 Camera::getPosition() {
-	return Position;
-}
+glm::vec3 Camera::getPosition() { return Position; }
 
-glm::vec3 Camera::getRotation() {
-	return Front;
-}
+glm::vec3 Camera::getRotation() { return Front; }
 
 void Camera::setFront2(const glm::vec3& position) {
 	camera->Front;

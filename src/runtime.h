@@ -6,8 +6,11 @@
 
 class runTimeProcessx64
 {
+
 public:
 	void initGL(GLFWwindow*& window);
 	void RUN();
+
 };
+
 #endif
