@@ -10,4 +10,3 @@ class CollisionManager
 };
 
 #endif
-
