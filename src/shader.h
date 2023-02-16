@@ -24,8 +24,10 @@ public:
 		std::ifstream fShaderFile;
 		vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 		fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
 		try
 		{
+
 			vShaderFile.open(vertexPath);
 			fShaderFile.open(fragmentPath);
 			std::stringstream vShaderStream, fShaderStream;
@@ -35,12 +37,10 @@ public:
 			fShaderFile.close();
 			vertexCode = vShaderStream.str();
 			fragmentCode = fShaderStream.str();
+
 		}
 
-		catch (std::ifstream::failure e)
-		{
-			std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
-		}
+		catch (std::ifstream::failure e){ std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl; }
 
 		int vertexCodeLength = vertexCode.length();
 		int fragmentCodeLength = fragmentCode.length();

@@ -29,6 +29,8 @@ public:
 
 	void processMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch);
 
+	void processKeyboardInput(GLFWwindow* window, bool& moveForward, bool& moveBackward, bool& moveLeft, bool& moveRight);
+
 	static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
 	void setFront2(const glm::vec3& position);

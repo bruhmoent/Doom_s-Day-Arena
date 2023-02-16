@@ -2,6 +2,30 @@
 std::unique_ptr<Camera> g_camera;
 Camera* camera;
 
+void Camera::processKeyboardInput(GLFWwindow* window, bool& moveForward, bool& moveBackward, bool& moveLeft, bool& moveRight)
+{
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		moveForward = true;
+	else
+		moveForward = false;
+
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		moveBackward = true;
+	else
+		moveBackward = false;
+
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		moveLeft = true;
+	else
+		moveLeft = false;
+
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		moveRight = true;
+	else
+		moveRight = false;
+}
+
+
 glm::mat4 Camera::getViewMatrix() { return glm::lookAt(Position, Position + Front, Up);}
 
 void Camera::resetCamera() { g_camera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f)); }

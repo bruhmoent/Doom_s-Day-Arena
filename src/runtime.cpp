@@ -76,7 +76,7 @@ void runTimeProcessx64::RUN()
 	g_camera->resetCamera();
 	glClearDepth(1.0f);
 	glEnable(GL_DEPTH_TEST);  
-	glDepthFunc(GL_LEQUAL);   
+	glDepthFunc(GL_LEQUAL);
 	glShadeModel(GL_SMOOTH);  
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST); 
 	glMatrixMode(GL_MODELVIEW); 
