@@ -5,13 +5,16 @@
 #include "camera.h"
 #include "runtime.h"
 
+extern std::vector<GLuint> g_textureIds;
+
 void clearBuffer(int width, int height)
 {
+
 	glViewport(0, 0, width, height);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-}
 
+}
 
 void RenderEngine::renderScene(Shader& shader, std::vector<Model>& models, Camera& camera, GLFWwindow*& window)
 {
@@ -50,20 +53,17 @@ void RenderEngine::renderScene(Shader& shader, std::vector<Model>& models, Camer
 	glUseProgram(shader.m_shaderID);
 	glValidateProgram(shader.m_shaderID);
 
-	for (int i = 0; i < models.size(); i++) {
-		models[i].setDepthFromCamera(camera.getPosition(), models[i].getPosition());
-	}
+	for (int i = 0; i < models.size(); i++) { models[i].setDepthFromCamera(camera.getPosition(), models[i].getPosition()); }
 
-	std::sort(models.begin(), models.end(), [](const Model& a, const Model& b) {
-		return a.m_depthFromCamera > b.m_depthFromCamera;
-		});
+	std::sort(models.begin(), models.end(), [](const Model& a, const Model& b) { return a.m_depthFromCamera > b.m_depthFromCamera; });
 
-	for (int i = 0; i < models.size(); i++) {
-		models[i].loadTexture("../assets/images/floor3.png", "test");
-		glActiveTexture(GL_TEXTURE0 + 2);
+	for (int i = 0; i < g_textureIds.size(); i++) {
+
+		glActiveTexture(GL_TEXTURE0 + i);
+		glBindTexture(GL_TEXTURE_2D, g_textureIds[i]);
 		GLint texture_diffuse = glGetUniformLocation(shader.m_shaderID, "texture2");
-		glUniform1i(texture_diffuse, 2);
-		glBindTexture(GL_TEXTURE_2D, models[i].m_textures["test"]);
+		glUniform1i(texture_diffuse, i);
+
 	}
 
 	clearBuffer(800, 600);
@@ -78,6 +78,7 @@ void RenderEngine::renderScene(Shader& shader, std::vector<Model>& models, Camer
 	glUniformMatrix4fv(glGetUniformLocation(shader.m_shaderID, "rotation"), 1, GL_FALSE, glm::value_ptr(modelRotation));
 	for (int i = 0; i < models.size(); ++i)
 	{
+
 		glGenVertexArrays(1, &vaos[i]);
 		glBindVertexArray(vaos[i]);
 		glGenBuffers(1, &vbos[i]);
@@ -107,6 +108,7 @@ void RenderEngine::renderScene(Shader& shader, std::vector<Model>& models, Camer
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
+
 	}
 
 	glUniformMatrix4fv(glGetUniformLocation(shader.m_shaderID, "view"), 1, GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
@@ -131,5 +133,18 @@ void RenderEngine::renderScene(Shader& shader, std::vector<Model>& models, Camer
 
 	glfwSwapBuffers(window);
 	glfwPollEvents();
+
+	for (GLuint vbo : vbos) {
+		glDeleteBuffers(1, &vbo);
+	}
+	vbos.clear();
+	for (GLuint vao : vaos) {
+		glDeleteVertexArrays(1, &vao);
+	}
+	vaos.clear();
+	for (GLuint ebo : ebos) {
+		glDeleteVertexArrays(1, &ebo);
+	}
+	ebos.clear();
 
 }

@@ -10,7 +10,6 @@ void Shader::checkShaderSourceErrors(GLuint shader, const char* type) {
 	}
 }
 
-
 void Shader::setVec3(const std::string& name, const glm::vec3& value) const { glUniform3fv(glGetUniformLocation(m_shaderID, name.c_str()), 1, &value[0]); }
 
 unsigned int Shader::getID() { return m_shaderID; }

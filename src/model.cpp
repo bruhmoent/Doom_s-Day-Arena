@@ -29,11 +29,11 @@ void Model::bindVertexData() {
     glBufferData(GL_ARRAY_BUFFER, m_vertices.size() * sizeof(float), m_vertices.data(), GL_STATIC_DRAW);
 }
 
-void Model::loadTexture(const std::string& textureFilePath, const std::string& textureName) {
+GLuint Model::loadTexture(const std::string& textureFilePath) {
     sf::Image image;
     if (!image.loadFromFile(textureFilePath)) {
         std::cerr << "Failed to load texture: " << textureFilePath << std::endl;
-        return;
+        return 0;
     }
 
     GLuint textureId;
@@ -41,7 +41,7 @@ void Model::loadTexture(const std::string& textureFilePath, const std::string& t
     GLenum error = glGetError();
     if (error != GL_NO_ERROR) {
         std::cerr << "Failed to generate texture: " << error << std::endl;
-        return;
+        return 0;
     }
 
     glActiveTexture(GL_TEXTURE2);
@@ -59,14 +59,13 @@ void Model::loadTexture(const std::string& textureFilePath, const std::string& t
     }
     else {
         std::cerr << "Unknown texture format" << std::endl;
-        return;
+        return 0;
     }
 
     glGenerateMipmap(GL_TEXTURE_2D);
 
-    m_textures[textureName] = textureId;
+    return textureId;
 }
-
 
 void Model::setVertexData(const std::vector<float>& vertexData)
 {

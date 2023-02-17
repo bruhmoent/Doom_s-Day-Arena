@@ -6,9 +6,9 @@
 #include "model.h"
 #include <C:\Users\bar12\source\repos\openGL\openGL\glad.c>
 
-extern std::vector<Model> g_models;
 Shader g_shader;
 Model g_model;
+std::vector<GLuint> g_textureIds;
 GLFWwindow* g_window;
 RenderEngine g_renderEngine;
 ModelLoader g_load;
@@ -63,14 +63,12 @@ void runTimeProcessx64::initGL(GLFWwindow*& window)
 
 	delete[] glfwIcon.pixels;
 	glViewport(0, 0, 800, 600);
-	glfwSetInputMode(g_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	glfwSetCursorPosCallback(g_window, Camera::mouse_callback);
 }
 
 void runTimeProcessx64::RUN()
 {
 
-	g_camera.reset(new Camera);
+	std::unique_ptr<Camera> g_camera(new Camera);
 	std::vector<Model> models = g_load.loadModel("../assets/stages/baseplate.obj");
 	g_shader = Shader("shader.vs", "shader.fs");
 	g_camera->resetCamera();
@@ -83,9 +81,18 @@ void runTimeProcessx64::RUN()
 	glLoadIdentity();  
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+	
+	for (int i = 0; i < models.size(); i++) {
+
+		GLuint textureId = models[i].loadTexture("../assets/images/floor3.png");
+		g_textureIds.push_back(textureId);
+
+	}
 
 	while (!glfwWindowShouldClose(g_window))
 	{
+		if (glfwGetKey(g_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+			break;
 
 		glm::vec3 cameraPosition = g_camera->getFront();
 		glfwSetInputMode(g_window, GLFW_CURSOR, GLFW_CROSSHAIR_CURSOR);

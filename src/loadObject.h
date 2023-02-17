@@ -16,8 +16,6 @@ public:
 
     std::vector<Model> loadModel(const std::string& path);
 
-    void clearBuffer(int width, int height);
-
     std::vector<float> m_vertexData;
 
 };

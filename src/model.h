@@ -23,6 +23,8 @@ public:
 	float m_depthFromCamera;
 	std::map<std::string, unsigned int> m_textures;
 
+	GLuint loadTexture(const std::string& textureFilePath);
+
 	glm::vec3 position = glm::vec3(0.0f);
 	glm::vec3 scale = glm::vec3(1.0f);
 	glm::vec3 rotation = glm::vec3(0.0f);

@@ -5,13 +5,6 @@
 unsigned int g_VBO, g_EBO, g_VAO;
 std::vector<Model> g_models;
 
-void ModelLoader::clearBuffer(int width, int height)
-{
-	glViewport(0, 0, width, height);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-}
-
 std::vector<Model> ModelLoader::loadModel(const std::string& path)
 {
     std::vector<Model> models;
@@ -61,22 +54,16 @@ std::vector<Model> ModelLoader::loadModel(const std::string& path)
         float radius = glm::length(extents);
         model.setVertexData(m_vertexData);
 
-        aiNode* node = scene->mRootNode->FindNode(mesh->mName);
-        aiMatrix4x4 transform = node->mTransformation;
-        transform.Transpose();
-        glm::mat4 modelMatrix = glm::make_mat4(&transform.a1);
-
         for (unsigned int j = 0; j < mesh->mNumFaces; j++) {
             aiFace face = mesh->mFaces[j];
             for (unsigned int k = 0; k < face.mNumIndices; k++) {
                 model.m_indices.push_back(face.mIndices[k]);
             }
         }
-        //TO DO: Fix scaling and position data.
         glm::vec3 l_scale = glm::vec3(extents.x, extents.y, extents.z);
         models.push_back(model);
-        models[i].position = l_position;
-        models[i].scale = l_scale;
+        models[i].position = center;
+        models[i].scale = extents * 0.65f;
     }
     return models;
 }

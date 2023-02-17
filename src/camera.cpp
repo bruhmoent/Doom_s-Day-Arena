@@ -1,6 +1,5 @@
 #include "camera.h"
 std::unique_ptr<Camera> g_camera;
-Camera* camera;
 
 void Camera::processKeyboardInput(GLFWwindow* window, bool& moveForward, bool& moveBackward, bool& moveLeft, bool& moveRight)
 {
@@ -40,9 +39,7 @@ void Camera::setZoom(float value) { zoom = value; }
 
 void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
-	if (camera == NULL) {
-		camera = (Camera*)(window);
-	}
+
 	static float lastX = 800 / 2.0f;
 	static float lastY = 600 / 2.0f;
 	static bool firstMouse = true;
@@ -58,7 +55,7 @@ void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	float yoffset = lastY - ypos;
 	lastX = xpos;
 	lastY = ypos;
-	camera->processMouseMovement(lastX, lastY, true);
+	g_camera->processMouseMovement(lastX, lastY, true);
 
 }
 
@@ -80,7 +77,7 @@ glm::vec3 Camera::getPosition() { return Position; }
 glm::vec3 Camera::getRotation() { return Front; }
 
 void Camera::setFront2(const glm::vec3& position) {
-	camera->Front;
+	g_camera->Front;
 	Front = position;
 }
 

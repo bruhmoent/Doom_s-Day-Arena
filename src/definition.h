@@ -20,6 +20,7 @@
 #include <iostream>
 #include <memory>
 #include <map>
+#include <unordered_map>
 #include <vector>
 #include <fstream>
 #endif
