@@ -1,0 +1,1 @@
+If you want to compile this source, you need to put in a glad.c file into this folder.
