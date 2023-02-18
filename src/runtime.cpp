@@ -4,7 +4,7 @@
 #include "camera.h"
 #include "render.h"
 #include "model.h"
-#include <C:\Users\bar12\source\repos\openGL\openGL\glad.c>
+#include "..\glad.c"
 
 Shader g_shader;
 Model g_model;

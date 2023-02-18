@@ -143,7 +143,7 @@ void RenderEngine::renderScene(Shader& shader, std::vector<Model>& models, Camer
 	}
 	vaos.clear();
 	for (GLuint ebo : ebos) {
-		glDeleteVertexArrays(1, &ebo);
+		glDeleteBuffers(1, &ebo);
 	}
 	ebos.clear();
 
